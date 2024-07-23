@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeBazaar Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-google {
+            background-color: #DB4437;
+            margin-top: 10px;
+        }
+        .toggle-link {
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-form">
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required>
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+        </div>
+        <button class="btn" onclick="login()">Login</button>
+        <button class="btn btn-google" onclick="googleLogin()" disabled>Login with Google</button>
+        <a class="toggle-link" onclick="toggleForm('signup-form')">Don't have an account? Sign Up</a>
+    </div>
+
+    <div class="container" id="signup-form" style="display:none;">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+            <label style="display: inline;" for="signup-email">Email</label>
+            <input  style="display: inline;" type="email" id="signup-email" required>
+        </div>
+        <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required>
+        </div>
+        <button class="btn" onclick="signup()">Sign Up</button>
+        <button class="btn btn-google" onclick="googleSignup()" disabled>Sign Up with Google</button>
+        <a class="toggle-link" onclick="toggleForm('login-form')">Already have an account? Login</a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyB46tRRDiC2CZDXguOkERo42bo7ApbPPGo",
+    authDomain: "tradebazaar-5faff.firebaseapp.com",
+    projectId: "tradebazaar-5faff",
+    storageBucket: "tradebazaar-5faff.appspot.com",
+    messagingSenderId: "556081241722",
+    appId: "1:556081241722:web:c3118b8894158830c8e5c3",
+    measurementId: "G-NSKX197LNF"
+  };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        async function signup() {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log(userCredential);
+                Swal.fire({
+                    title: "Account Created Successfully!",
+                    text: "Developed By MKA",
+                    icon: "success"
+                });
+                toggleForm('login-form');
+            } catch (error) {
+                console.error(error.code, error.message);
+                Swal.fire({
+                    title: error.code,
+                    text: error.message,
+                    icon: "error"
+                });
+            }
+            document.getElementById('signup-email').value = '';
+            document.getElementById('signup-password').value = '';
+        }
+            
+        
+
+
+
+        async function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('Login successful');
+                Swal.fire({
+                    title: "Login Succesful!",
+                    text: "Refreash your site.",
+                    icon: "success"
+                });
+            localStorage.setItem('Email',email)
+            window.location.href="index.html";
+            } catch (error) {
+                console.error(error.code, error.message);
+                Swal.fire({
+                    title: error.code,
+                    text: error.message,
+                    icon: "error"
+                });
+            }
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+        
+        }
+           
+
+        function toggleForm(formId) {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        window.signup = signup;
+        window.login = login;
+        window.toggleForm = toggleForm;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
