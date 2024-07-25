@@ -356,6 +356,10 @@ loadAllData()
 
 
 async function explore(prd,mail){
+    if (window.location.pathname === "/index.html") {
+        window.location.href = "authenticationPage.html";
+    }
+        
 document.getElementById('main').style.display='none'
 document.getElementById('exploreSection').style.display='block'
 const docRef = doc(db, "All Products", mail);
