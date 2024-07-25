@@ -67,11 +67,16 @@
             background-color: #0056b3 !important; /* Darker shade of primary color */
             border-color: #0056b3 !important; /* Darker shade of primary color */
         }
+
+        /* Add padding to the top of the main content to avoid overlapping with the fixed navbar */
+        main {
+            padding-top: 80px; /* Adjust this value if needed */
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">TradeBazaar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +86,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -89,59 +94,35 @@
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Mobile</a>
-                        <a class="dropdown-item" href="#">Car</a>
-                        <a class="dropdown-item" href="#">Property</a>
-                        <a class="dropdown-item" href="#">Bike</a>
+                        <a onclick="loadCategoryData('Mobile')" class="dropdown-item" href="#">Mobile</a>
+                        <a onclick="loadCategoryData('Car')" class="dropdown-item" href="#">Car</a>
+                        <a onclick="loadCategoryData('Property')" class="dropdown-item" href="#">Property</a>
+                        <a onclick="loadCategoryData('Bike')" class="dropdown-item" href="#">Bike</a>
                     </div>
                 </li>
             </ul>
-            <button class="btn btn-outline-primary mr-2">Login</button>
-            <button class="btn btn-primary mr-2">Sell</button>
+            <a href="authenticationPage.html"><button class="btn btn-outline-primary mr-2">Login</button></a>
+            <a href="authenticationPage.html"><button class="btn btn-primary mr-2">Sell</button></a>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" onsubmit="search(event)">
+                <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+            
         </div>
     </nav>
-
     <main>
-        <h3 class="mt-4 mb-3">All Categories</h3>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Mobile</h5>
-                        <p class="card-text">Explore our range of mobile phones.</p>
-                        <a href="#" class="btn btn-primary">Explore</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Car</h5>
-                        <p class="card-text">Find your dream car.</p>
-                        <a href="#" class="btn btn-primary">Explore</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Property</h5>
-                        <p class="card-text">Discover properties for sale or rent.</p>
-                        <a href="#" class="btn btn-primary">Explore</a>
-                    </div>
-                </div>
-            </div>
+        <h3 id="categoryType" class="mt-4 mb-3"></h3>
+        <div id="productRow" class="row">
         </div>
     </main>
+    <div id="tempModal">
 
+    </div>
+    <footer style="height: fit-content; background-color: #343a4052; color: white; padding: 2px; text-align: center; position: fixed; bottom: 0; width: 100%;">
+        Developed by MKA-C &copy; 2024. All rights reserved.
+    </footer>
+        <script type="module" src="app.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -152,5 +133,4 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 </body>
-
 </html>
