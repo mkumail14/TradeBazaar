@@ -71,8 +71,21 @@
         /* Add padding to the top of the main content to avoid overlapping with the fixed navbar */
         main {
             padding-top: 80px; /* Adjust this value if needed */
-        }
+        }.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     </style>
+
 </head>
 
 <body>
@@ -111,11 +124,17 @@
             
         </div>
     </nav>
-    <main>
-        <h3 id="categoryType" class="mt-4 mb-3"></h3>
-        <div id="productRow" class="row">
+    <div id="exploreSection"></div>   
+    <div id="mainLoader" style="display: flex; padding-top: 80px; align-items: center; justify-content: center; height: 600px;">
+        <div class="loader"></div>
         </div>
+    <main id="main">        
+        <h3 id="categoryType" class="mt-4 mb-3"></h3>
+        <div id="productRow" class="row"></div>
     </main>
+    
+
+  
     <div id="tempModal">
 
     </div>

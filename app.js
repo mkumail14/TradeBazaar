@@ -265,8 +265,9 @@ window.location.href="main.html"
          
     }
 }
+if(document.getElementById('sellNew')){
 document.getElementById('sellNew').style.backgroundColor="#007bff";
-
+}
 async function yourPrd(){
 document.getElementById('sellNew').style.backgroundColor="white";
 document.getElementById('soldBtn').style.backgroundColor="white";
@@ -327,7 +328,9 @@ async function sellNew(){
         }
         loader(0)
         function loader(value){
+            if( document.getElementById('loader')){
             document.getElementById('loader').style.width=`${value}%`
+            }
         }
 
 
@@ -361,8 +364,8 @@ const data = docSnap.data();
 const product = data[prd];
 let datee=convertTimestampToDate(product[4])
 document.getElementById('imgContainer').innerHTML=`<img style="width:inherit;" src=${product[3]}></img>`
-document.getElementById('prdName').innerText=`${product[0]}`
-document.getElementById('prdPrice').innerHTML=`<h5>Rs.${product[1]}</h5><br><button style="
+document.getElementById('productdName').innerText=`${product[0]}`
+document.getElementById('productPrice').innerHTML=`<h5>Rs.${product[1]}</h5><br><button style="
     background-color: #28a745;
     color: white;
     border-radius: 25px;
@@ -379,11 +382,11 @@ document.getElementById('prdPrice').innerHTML=`<h5>Rs.${product[1]}</h5><br><but
     Buy Now
 </button>
 `
-document.getElementById('prdDes').innerHTML=`
+document.getElementById('productDes').innerHTML=`
 <label><b>Description:</b></label><p>${product[6]}</p>
 <label><b>Categary:</b></label><p>${product[5]}</p>
 <label><b>Contact User:</b></label>
-<p>Name:${product[5]}</p>
+<p>Name:${product[2]}</p>
 <p>Email:${product[7]}</p>
 <br><br>
 <label>Uploaded on:</label><p>${datee}</p>
